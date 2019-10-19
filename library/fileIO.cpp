@@ -28,10 +28,19 @@ int loadBooks(std::vector<book> &books, const char* filename)
 
 		getline(myfile, line);
 		book temp;
-		temp.title               = getline(ss, line, ',');
-		temp.author              = getline(ss, line, ',');
-		temp.state               = getline(ss, line, ',');
-		temp.loaned_to_patron_id = getline(ss, line, '\n');
+
+		getline(ss, line, ',');
+		temp.title = ss.str();
+
+		getline(ss, line, ',');
+		temp.author = ss.str();
+
+		getline(ss, line, ',');
+		temp.state = ss.str();
+
+		getline(ss, line, ',');
+		temp.loaned_to_patron_id = stoi(ss.str());
+
 		books.push_back(temp);
 	}
 	myfile.close();
@@ -64,7 +73,7 @@ int saveBooks(std::vector<book> &books, const char* filename)
 		myfile << books[i].title << ',' << books[i].author << ',' << books[i].state << ',' <<
 				books[i].loaned_to_patron_id << endl;
 	}
-
+	myfile.close();
 	return SUCCESS;
 }
 
@@ -88,16 +97,22 @@ int loadPatrons(std::vector<patron> &patrons, const char* filename)
 
 			getline(myfile, line);
 			patron temp;
-			temp.patron_id                = getline(ss, line, ',');
-			temp.name                     = getline(ss, line, ',');
-			temp.number_books_checked_out = getline(ss, line, '\n');
+
+			getline(ss, line, ',');
+			temp.patron_id = stoi(ss.str());
+
+			getline(ss, line, ',');
+			temp.name = ss.str();
+
+			getline(ss, line, ',');
+			temp.number_books_checked_out = stoi(ss.str());
+
 			patrons.push_back(temp);
 		}
 		myfile.close();
 		if (patrons.empty()){
 			return NO_PATRONS_IN_LIBRARY;
 		}
-
 		return SUCCESS;
 }
 
@@ -121,6 +136,6 @@ int savePatrons(std::vector<patron> &patrons, const char* filename)
 		for (int i = 0; i < patrons.size(); i++) {
 			myfile << patrons[i].patron_id << ',' << patrons[i].name << ',' << patrons[i].number_books_checked_out << endl;
 		}
-
+		myfile.close();
 		return SUCCESS;
 }
