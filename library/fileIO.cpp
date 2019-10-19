@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <sstream>
 
 #include "../includes_usr/fileIO.h"
 #include "../includes_usr/constants.h"
@@ -22,7 +23,7 @@ int loadBooks(std::vector<book> &books, const char* filename)
 		return COULD_NOT_OPEN_FILE;
 	}
 	string line = "";
-	stringstream ss;
+	stringstream ss(line);
 	while (!myfile.eof()) {
 
 		getline(myfile, line);
@@ -82,7 +83,7 @@ int loadPatrons(std::vector<patron> &patrons, const char* filename)
 			return COULD_NOT_OPEN_FILE;
 		}
 		string line = "";
-		stringstream ss;
+		stringstream ss(line);
 		while (!myfile.eof()) {
 
 			getline(myfile, line);
